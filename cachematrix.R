@@ -76,11 +76,11 @@ makeCacheMatrix <- function(cache_mat = matrix()) {
 
 
 ##------------------------------------------------------------------------------
-## function: makeCacheMatrix
+## function: cacheSolve
 ##------------------------------------------------------------------------------
 ## Purpose: Return the inverse of a special matrix object.  If the
 ## matrix object has its inverse cached, the cached version is returned.
-## But, if the matrix object does not have a cached inverse, the inverse
+## But, if the matrix object does not have a cached inverse, the inverse is
 ## calculated, cached, and then returned.
 ##------------------------------------------------------------------------------
 ## Note: This logic does not trap cases where an inverse is requested
@@ -92,7 +92,7 @@ cacheSolve <- function(input_mat, ...) {
     # Get the cached copy of the inverse, if there is one.
     mat_inv <- input_mat$getinverse()
     
-    # If there is a cached copy, do nothing else.
+    # If there is a cached copy, let the caller know and skip to the bottom.
     if (!is.null(mat_inv)) {    
         message("getting cached inverse")
     
@@ -135,7 +135,7 @@ print(a_inv_repeat)
 # TEST 3:  Now change matrix 'a' by giving it new data.
 a$set(matrix(rnorm(25), 5, 5))  # $set sets the inverse to NULL every time.
 print(a$get())  
-a_inv <- cacheSolve(a)  # Computes the inverse for the first time and caches it.
+a_inv <- cacheSolve(a)  # Compute the inverse for the first time and cache it.
 print(a_inv)  
 a_inv_repeat <- cacheSolve(a) # Retrieve the inverse from cache.  
 print(a_inv_repeat)
